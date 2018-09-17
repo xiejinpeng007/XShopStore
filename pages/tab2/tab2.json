@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "购物车",
+  "usingComponents": {
+    "zan-stepper": "/components/stepper/index",
+    "zan-button": "/components/btn/index",
+    "i-swipeout": "/components/swipeout/index"
+  }
+}

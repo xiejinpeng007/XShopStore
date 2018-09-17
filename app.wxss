@@ -1,0 +1,18 @@
+/**app.wxss**/
+@import 'weui.wxss';
+@import 'index.wxss';
+
+.container{
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: auto;
+  background-color: #f8f8f8;
+}
+
+.divider{
+  height: 1rpx;
+  background:#E4E4E6;
+}

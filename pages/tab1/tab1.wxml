@@ -1,0 +1,17 @@
+<!-- pages/tab1/tab1.wxml -->
+<!-- <view class="divider" /> -->
+<button class="qr-button" bindtap='onClickQrScan'>
+  <image class="qr-image" src="/src/qr_scan.png" mode="aspectFit" />
+  扫一扫
+</button>
+<zan-search placeholder="搜索商品" bindsearch="searchGoodsList" bindchange="clearSearch" />
+<scroll-view class="scroll-view" enable-back-to-top="true">
+  <view class="divider" />
+  <block wx:for="{{filteredGoodsList?filteredGoodsList:goodsList}}" wx:key="{{item.barCode}}">
+    <view class="item" hover-class="item-hover-class" bindtap="addToCart" data-index="{{index}}">
+      <view class="item-name">{{item.name}}</view>
+      <view>{{item.salePrice}}元</view>
+    </view>
+    <view class="divider" />
+  </block>
+</scroll-view>

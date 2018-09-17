@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "小卖部",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "zan-search": "../../components/search/index"
+  }
+}

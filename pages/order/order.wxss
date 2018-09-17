@@ -1,0 +1,50 @@
+/* pages/order/order.wxss */
+
+.container {
+  background-color: #f8f8f8
+}
+
+.list {
+  margin-top: 20rpx;
+  background-color: white;
+}
+
+.weui-btn {
+  margin: 100rpx 50rpx 50rpx 50rpx;
+  color: white;
+  background-color: #F77938;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 20rpx 30rpx 20rpx 30rpx;
+}
+
+.quantity-text {
+  color: gray;
+  font-size: small;
+  text-align: center;
+}
+
+.item-success{
+  margin-top: 80rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.success-image{
+  width: 100rpx;
+  height: 100rpx;
+}
+
+.success-text {
+  box-sizing: border-box;
+  text-align: center;
+  padding: 10rpx 0rpx 10rpx 0rpx;
+  margin-top: 50rpx;
+  margin-left: 20rpx;
+}

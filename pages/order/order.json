@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "确认订单",
+  "backgroundColor": "#eeeeee",
+  "usingComponents": {
+    "zan-button": "/components/btn/index",
+    "zan-card": "/components/card/index"
+  }
+}

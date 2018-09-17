@@ -1,0 +1,42 @@
+<!-- pages/tab2/tab2.wxml -->
+<view class="container">
+  <scroll-view class="scroll-view">
+    <block wx:if="{{cartGoods==false}}">
+      <view class="empty-cart-text">购物车是空的</view>
+    </block>
+    <block wx:else>
+      <view class="cart-items">
+        <view class="divider" />
+        <block wx:for="{{cartGoods}}" wx:key="{{item.barCode}}">
+          <i-swipeout i-class="i-swipeout-demo-item" actions="{{actions}}" data-index="{{index}}" bind:change="onItemDelete">
+            <view class="weui-flex" slot="content">
+              <checkbox-group bindchange="onCheckChanged" data-index="{{index}}" class="checkbox-group">
+                <checkbox class="select-item-cb" color="#F77938" checked='{{item.checked}}' value="{{!item.checked}}"></checkbox>
+              </checkbox-group>
+              <view class="weui-flex__item">{{item.name}}</view>
+              <zan-stepper class="zen-stepper" bind:change="onCartNumChanged" stepper="{{item.quantity}}" data-index="{{index}}"></zan-stepper>
+            </view>
+          </i-swipeout>
+        </block>
+      </view>
+      <view class="divider" />
+    </block>
+  </scroll-view>
+  <view class="bottom-layout">
+    <view class="divider"></view>
+    <view class="order-layout">
+      <checkbox-group class="select-all-gcb" bindchange="onClickSelectAll">
+        <label class="center-text">
+          <checkbox class="select-all-cb" color="#F77938" checked="{{selectedAll}}" value="value"></checkbox>
+          全选
+        </label>
+      </checkbox-group>
+      <view class="totalprice-view">
+        <text>合计:</text>
+        <text>{{totalPrice}}</text>
+        <text>元</text>
+      </view>
+      <view class="order-btn" bindtap="onClickOrder">结算</view>
+    </view>
+  </view>
+</view>
