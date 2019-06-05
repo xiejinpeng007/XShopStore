@@ -1,1 +1,1 @@
-# wxapp-XShopStore
+# XShopStore-weapp
