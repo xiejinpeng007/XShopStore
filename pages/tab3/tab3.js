@@ -1,6 +1,7 @@
 // pages/tab3/tab3.js
 
 var app = getApp()
+var constans = require('../../utils/constans.js'); 
 
 Page({
 
@@ -87,7 +88,7 @@ Page({
   clickLogin(e) {
     wx.showLoading();
     wx.request({
-      url: 'https://localhost/api_login',
+      url: constans.baseUrl+'/api_login',
       method: 'POST',
       header: {
         'content-type': 'application/x-www-form-urlencoded'
@@ -99,7 +100,7 @@ Page({
       success: (res) => {
         console.log(res.data)
         wx.hideLoading();
-        if (res.data.error == null) {
+        if (res.data != null) {
           this.setData({
             money: res.data.money,
             token: res.data.token
@@ -125,7 +126,7 @@ Page({
   getUserInfo() {
     // wx.showLoading();
     wx.request({
-      url: 'https://localhost/api_userinfo',
+      url: constans.baseUrl+'/api_userinfo',
       method: 'POST',
       header: {
         'content-type': 'application/x-www-form-urlencoded'
@@ -136,7 +137,7 @@ Page({
       success: (res) => {
         console.log(res.data)
         // wx.hideLoading()
-        if (res.data.error == null) {
+        if (res.data != null) {
           this.setData({
             money: res.data.money,
           })
@@ -152,7 +153,7 @@ Page({
   onUsernameChanged(e) {
     console.log(e);
     this.setData({
-      username:e.detail.detail.value
+      username: e.detail.detail.value
     })
   },
 

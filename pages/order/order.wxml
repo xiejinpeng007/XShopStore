@@ -1,5 +1,15 @@
 <!-- pages/order/order.wxml -->
 <view class="container">
+<!-- step -->
+<view class='bg-white padding'>
+  <view class='cu-steps'>
+    <view class='cu-item {{index>steps?"":"text-orange"}}' wx:for="{{numList}}">
+      <text class='num {{""}}' data-index='{{index}}'></text>
+      {{item.name}}
+    </view>
+  </view>
+</view>
+
   <block wx:if="{{!paySuccess}}">
     <view class="list">
       <view class="divider" />
@@ -14,13 +24,14 @@
         <view class="divider" />
       </block>
     </view>
-    <button class="weui-btn" bindtap="clickPay">支付 {{totalPrice}}元</button>
+    <button class="weui-btn bg-gradual-orange" bindtap="clickPay">支付 {{totalPrice}}元</button>
   </block>
   <block wx:else>
-    <view class="item-success">
+    <view class="item-success animation-fade">
       <image class="success-image" src="/src/success.png" mode="aspectFit" />
       <view class="success-text">购买成功</view>
     </view>
-    <button class="weui-btn" bindtap="clickSuccess">返回购物车</button>
+    <button class="weui-btn bg-gradual-orange" bindtap="clickSuccess">返回购物车</button>
   </block>
 </view>
+

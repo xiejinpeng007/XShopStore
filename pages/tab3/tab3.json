@@ -3,6 +3,7 @@
   "usingComponents": {
     "zan-field": "/components/field/index",
     "zan-cell-group": "/components/cell-group/index",
-    "zan-button": "/components/btn/index"
+    "zan-button": "/components/btn/index",
+    "zan-icon": "../../components/icon/index"
   }
 }

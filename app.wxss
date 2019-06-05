@@ -16,3 +16,55 @@
   height: 1rpx;
   background:#E4E4E6;
 }
+
+.bg-gradual-orange {
+  background-image: linear-gradient(45deg, #ff9700, #ed1c24);
+  color: #fff;
+}
+
+.cu-custom {
+  display: block;
+  position: relative;
+}
+
+.cu-custom .cu-bar {
+  min-height: 0px;
+}
+
+.bg-white {
+  background-color: #fff;
+  color: #666;
+}
+
+/* 动画 */
+@keyframes show {
+  0% {
+    transform: translateY(-50px);
+  }
+
+  60% {
+    transform: translateY(40rpx);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@-webkit-keyframes show {
+  0% {
+    transform: translateY(-50px);
+  }
+
+  60% {
+    transform: translateY(40rpx);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.shadow-lg {
+  box-shadow: 0rpx 40rpx 100rpx 0rpx rgba(0, 0, 0, 0.07);
+}

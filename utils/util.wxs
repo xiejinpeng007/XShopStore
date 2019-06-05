@@ -1,0 +1,14 @@
+var toFixed = function (num) {
+    return num.toFixed(1)
+}
+
+//    var fmt = "yyyy-MM-dd hh:mm"
+var date2String = function (string) {
+    var d = getDate(parseInt(string))
+    return [d.getFullYear(), d.getMonth()+1, d.getDate()].join('-')
+      + ' '
+      + [d.getHours(), d.getMinutes(), d.getSeconds()].join(':')}
+module.exports = {
+    toFixed: toFixed,
+    date2String: date2String
+}

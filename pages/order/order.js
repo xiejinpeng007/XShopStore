@@ -22,6 +22,15 @@ Page({
       totalPrice: app.globalData.cartGoods.filter(it => it.checked == true)
         .reduce((pre, cur, curIndex, arr) => pre + cur.price * cur.quantity, 0)
         .toFixed(1)
+      ,
+      numList: [{
+        name: '下单'
+      }, {
+        name: '支付'
+      }, {
+        name: '成功'
+      },],
+      steps: 1
     })
   },
 
@@ -75,11 +84,18 @@ Page({
   },
 
   clickPay() {
+    //debug
+    // this.setData({
+    //   cartGoods: app.globalData.cartGoods.filter(it => !it.checked),
+    //   paySuccess: true,
+    //   steps : 2
+    // })
+    // app.globalData.cartGoods = app.globalData.cartGoods.filter(it => !it.checked);
     wx.showLoading()
     var param = this.data.cartGoods.map(it => it.barCode + ',' + it.quantity).join(";").toString()
     console.log(param)
     wx.request({
-      url: 'https://localhost/api_payManyGoods',
+      url: constans.baseUrl + '/api_payManyGoods',
       method: 'POST',
       header: {
         'content-type': 'application/x-www-form-urlencoded'
@@ -89,10 +105,11 @@ Page({
         cart: param
       },
       success: (res) => {
-        if (res.data.error == null) {
+        if (res.data.status == "OK") {
           this.setData({
             cartGoods: app.globalData.cartGoods.filter(it => !it.checked),
-            paySuccess: true
+            paySuccess: true,
+            steps: 2
           })
           app.globalData.cartGoods = app.globalData.cartGoods.filter(it => !it.checked);
         } else {
@@ -100,7 +117,6 @@ Page({
             content: '请求错误',
           })
         }
-
       },
       fail: (res) => {
         wx.showModal({
@@ -116,5 +132,5 @@ Page({
 
   clickSuccess() {
     wx.navigateBack()
-  }
+  },
 })

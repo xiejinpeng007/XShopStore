@@ -5,7 +5,9 @@
     "pages/tab3/tab3",
     "pages/index/index",
     "pages/logs/logs",
-    "pages/order/order"
+    "pages/order/order",
+    "pages/buyHistory/buyHistory",
+    "pages/chargeHistory/chargeHistory"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -15,31 +17,32 @@
     "backgroundColor": "#f8f8f8"
   },
   "tabBar": {
-    "backgroundColor" :"#ffffff",
-    "selectedColor":"#F77938",
+    "backgroundColor": "#ffffff",
+    "selectedColor": "#F77938",
     "list": [
       {
         "pagePath": "pages/tab1/tab1",
         "text": "小卖部",
-        "color":"#707070",
+        "color": "#707070",
         "iconPath": "src/home.png",
         "selectedIconPath": "src/home_selected.png"
       },
       {
         "pagePath": "pages/tab2/tab2",
         "text": "购物车",
-        "color":"#707070",
+        "color": "#707070",
         "iconPath": "src/cart.png",
         "selectedIconPath": "src/cart_selected.png"
       },
       {
         "pagePath": "pages/tab3/tab3",
         "text": "我的",
-        "color":"#707070",
-        "iconPath": "src/my.png",
-        "selectedIconPath": "src/my_selected.png"
+        "color": "#707070",
+        "iconPath": "src/fcn.png",
+        "selectedIconPath": "src/fcn_selected.png"
       }
     ]
   },
-  "debug": true
+  "debug": true,
+  "sitemapLocation": "sitemap.json"
 }

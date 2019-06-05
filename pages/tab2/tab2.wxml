@@ -22,6 +22,7 @@
       <view class="divider" />
     </block>
   </scroll-view>
+  
   <view class="bottom-layout">
     <view class="divider"></view>
     <view class="order-layout">
@@ -36,7 +37,7 @@
         <text>{{totalPrice}}</text>
         <text>元</text>
       </view>
-      <view class="order-btn" bindtap="onClickOrder">结算</view>
+      <view class="order-btn bg-gradual-orange" bindtap="onClickOrder">结算</view>
     </view>
   </view>
 </view>

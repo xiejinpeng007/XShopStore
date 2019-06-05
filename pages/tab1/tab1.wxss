@@ -25,13 +25,19 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 80rpx;
-  padding-left: 90rpx;
+  height: auto;
+  min-height: 80rpx;
+  padding-left: 40rpx;
   padding-right: 50rpx;
 }
 
 .item-name {
-  text-align: center;
+  margin-right: 20rpx;
+  text-align: start;
+}
+
+.price {
+  white-space: nowrap;
 }
 
 .item-hover-class {
@@ -39,8 +45,20 @@
 }
 
 .divider {
-  height: 1rpx;
-  background: #e4e4e6;
+  height: 1pt;
+  background: #f8f8f8;
   margin: 0rpx 20rpx 0rpx 20rpx;
   box-sizing: border-box;
+}
+
+.icon {
+  align-self: center;
+  margin-right: 40rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.left-item {
+  display: flex;
+  align-content: center;
 }

@@ -1,0 +1,9 @@
+<!-- pages/chargeHistory/chargeHistory.wxml -->
+<wxs src="../../utils/timeUtil.wxs" module="timeUtil" />
+<view class="card shadow-lg animation-slide-bottom">
+    <text class="sumCharge">总充值：{{sumCharge}}元</text>
+    <view class="item" wx:for="{{historys}}">
+        <text>{{timeUtil.stamp2String(item.time)}}</text>
+        <text>{{item.charge}}元</text>
+    </view>
+</view>

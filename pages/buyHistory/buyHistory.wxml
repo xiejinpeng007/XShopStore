@@ -1,0 +1,16 @@
+<!-- pages/buyHistory.wxml -->
+<wxs src="../../utils/util.wxs" module="util" />
+<scroll-view class="scroll">
+    <text class="title">最近30天的订单</text>
+    <text class="sumCost">总支出：{{sumSpend}}元</text>
+    <view class="card shadow-lg bg-white" style='animation: show {{(index+1)*0.1+1}}s 1;-webkit-animation: show {{(index+1)*0.1+1}}s 1;' wx:for="{{historys}}" wx:key="{{historyToken}}" wx:for-item="card">
+        <view class="order-time">{{card.payTime}}</view>
+        <view wx:for="{{card.payGoods}}" wx:key="{{barCode}}" wx:for-item="good">
+            <view class="good">
+                <view>{{good.goodsData.name}}</view>
+                <text>单价：{{util.toFixed(good.goodsData.salePrice)}}元</text>
+            </view>
+        </view>
+        <view class="total-price">总价：{{util.toFixed(card.spend)}}元</view>
+    </view>
+</scroll-view>

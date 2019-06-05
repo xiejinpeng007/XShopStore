@@ -1,0 +1,55 @@
+/* pages/buyHistory.wxss */
+page {
+    background-color: #f8f8f8;
+}
+
+.scroll{
+    color: #666;    padding-bottom: 30rpx;
+}
+
+.title{
+    color: #353535;
+    margin-top: 10rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sumCost{
+    color: #353535;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12pt;
+}
+
+.card{
+    color: #353535;
+    font-size: 12pt;
+    display: flex;
+    flex-direction: column;
+    margin-left: 20rpx;
+    margin-right: 20rpx;
+    margin-top: 20rpx;
+    padding-left: 50rpx;
+    padding-right: 20rpx;
+    padding-top: 20rpx;
+    padding-bottom: 20rpx;
+    border-radius: 10rpx;
+}
+
+.order-time{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.good{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.total-price{
+    display: flex;
+    justify-content: flex-end;
+}

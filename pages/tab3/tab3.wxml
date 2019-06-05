@@ -5,17 +5,29 @@
 </view>
 <block wx:if="{{token==null}}">
   <view>
-    <zan-cell-group class="zan-cell-group">
-      <view class="divider" />
-      <zan-field title="账号" value="{{username}}" placeholder="fcnxxx"  bind:change="onUsernameChanged"></zan-field>
-      <zan-field title="密码" value="{{password}}" inputType="password" placeholder="初始密码123456"  bind:change="onPasswordChanged"></zan-field>
-      <view class="divider" />
-    </zan-cell-group>
+    <view class="list-card shadow-lg bg-white">
+      <zan-field title="账号" border="{{false}}" value="{{username}}" placeholder="fcnxxx" bind:change="onUsernameChanged"></zan-field>
+      <zan-field title="密码" border="{{false}}" value="{{password}}" inputType="password" placeholder="初始密码123456" bind:change="onPasswordChanged"></zan-field>
+    </view>
   </view>
-  <button class="btn-login" bindtap="clickLogin">登录</button>
+  <button class="btn-login bg-gradual-orange" bindtap="clickLogin">登录</button>
 </block>
 <block wx:else>
   <view class="divider" />
-  <zan-field disabled="true" title="余额" value="{{money}}"></zan-field>
+  <view class="list-card shadow-lg bg-white">
+    <view class="item balance">
+      <text>余额</text>
+      <text>{{money}}</text>
+    </view>
+    <view class="divider" />
+    <navigator url="../buyHistory/buyHistory" class="item">
+      <text>历史订单</text>
+    </navigator>
+    <view class="divider" />
+    <navigator url="../chargeHistory/chargeHistory" class="item">
+      <text>历史充值</text>
+      <zan-icon name="arrow"/>
+    </navigator>
+  </view>
   <button class="btn-logout" type='warn' bindtap="clickLogout">退出</button>
 </block>

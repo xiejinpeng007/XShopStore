@@ -1,0 +1,49 @@
+/* pages/chargeHistory/chargeHistory.wxss */
+
+page {
+    background-color: #f8f8f8;
+}
+
+.sumCharge {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.card {
+    color: #353535;
+    font-size: 12pt;
+    display: flex;
+    flex-direction: column;
+    margin-left: 20rpx;
+    margin-right: 20rpx;
+    margin-top: 20rpx;
+    margin-bottom: 40rpx;
+    padding-left: 50rpx;
+    padding-right: 20rpx;
+    padding-top: 20rpx;
+    padding-bottom: 20rpx;
+    border-radius: 20rpx;
+    background-color: white
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    padding: 20rpx;
+}
+
+.animation-slide-bottom {
+    animation: slide-bottom 1s;
+}
+
+@keyframes slide-bottom {
+    0% {
+        opacity: 0;
+        transform: translateY(100%)
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0)
+    }
+}

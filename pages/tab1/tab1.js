@@ -1,6 +1,7 @@
 // pages/tab1/tab1.js
 // const Toast = require('components/toast/toast');
 var app = getApp()
+var constans = require('../../utils/constans.js'); 
 
 Page({
 
@@ -9,10 +10,12 @@ Page({
    * 据
    */
   data: {
-
     goodsList: null,
-    filteredGoodsList: null
-
+    filteredGoodsList: null,
+    icons: ["food-pecan", "food-avocado", "food-bread", "food-cake", "food-cashew",
+      "food-chips", "food-cookie", "food-doughnut", "food-eggyolkcake", "food-hotdog",
+      "food-macaron", "food-mochi", "food-pistachio", "food-pizza", "food-popcorn", "food-popsicle",
+      "food-pudding", "food-strawberry", "food-sushi", "food-taco"]
   },
 
   /**
@@ -32,7 +35,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {},
+  onShow: function () { },
 
   /**
    * 生命周期函数--监听页面隐藏
@@ -59,7 +62,8 @@ Page({
     } else {
       this.loadGoods();
     }
-    wx.stopPullDownRefresh()  },
+    wx.stopPullDownRefresh()
+  },
 
   /**
    * 页面上拉触底事件的处理函数
@@ -79,12 +83,13 @@ Page({
     var that = this;
     wx.showLoading();
     wx.request({
-      url: 'https://localhost/api_getAllGoods',
+      url: constans.baseUrl + '/api_getAllGoods',
       method: 'POST',
       success: (res) => {
         console.log(res.data)
         wx.hideLoading();
-        if (res.data.error == null) {
+        if (res.data != null) {
+          // that.setData({goodsList:res.data})
           that.setData({
             goodsList: res.data.filter(it => it.count > 0).reverse()
           })
@@ -100,10 +105,10 @@ Page({
   addToCart: function (e) {
     var index = app.globalData.cartGoods ?
       app.globalData.cartGoods
-      .map(it => it.name == (this.data.filteredGoodsList ?
-        this.data.filteredGoodsList[e.currentTarget.dataset.index].name :
-        this.data.goodsList[e.currentTarget.dataset.index].name))
-      .findIndex(it => it == true) : -1;
+        .map(it => it.name == (this.data.filteredGoodsList ?
+          this.data.filteredGoodsList[e.currentTarget.dataset.index].name :
+          this.data.goodsList[e.currentTarget.dataset.index].name))
+        .findIndex(it => it == true) : -1;
     if (index != -1) {
       app.globalData.cartGoods[index].quantity++
     } else {
