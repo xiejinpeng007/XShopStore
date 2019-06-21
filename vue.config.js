@@ -1,10 +1,10 @@
-import api from "@/utils/api.js"
+const baseUrl = 'localhost:8080/'
 module.exports = {
     //dev 环境代理 解决dev环境跨域问题
     devServer: {
         proxy: {
             '/api_getAllGoods': {
-                target: api.baseUrl,
+                target: baseUrl,
                 changeOrigin: true,
                 ws: true,
                 pathRewrite: {
@@ -12,7 +12,7 @@ module.exports = {
                 }
             },
             '/api_payManyGoods': {
-                target: api.baseUrl,
+                target: baseUrl,
                 changeOrigin: true,
                 ws: true,
                 pathRewrite: {
@@ -20,7 +20,7 @@ module.exports = {
                 }
             },
             '/api_login': {
-                target: api.baseUrl,
+                target: baseUrl,
                 changeOrigin: true,
                 ws: true,
                 pathRewrite: {
@@ -28,7 +28,7 @@ module.exports = {
                 }
             },
             '/api_userinfo': {
-                target: api.baseUrl,
+                target: baseUrl,
                 changeOrigin: true,
                 ws: true,
                 pathRewrite: {
@@ -36,7 +36,7 @@ module.exports = {
                 }
             },
             '/api_getPayHistory': {
-                target: api.baseUrl,
+                target: baseUrl,
                 changeOrigin: true,
                 ws: true,
                 pathRewrite: {
@@ -44,7 +44,7 @@ module.exports = {
                 }
             },
             '/api_getChargeHistory': {
-                target: api.baseUrl,
+                target: baseUrl,
                 changeOrigin: true,
                 ws: true,
                 pathRewrite: {
