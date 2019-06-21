@@ -1,4 +1,6 @@
 // pages/buyHistory.js
+var constants = require('../../utils/constants.js'); 
+
 Page({
 
   /**
@@ -65,7 +67,7 @@ Page({
 
   },
 
-  date2String: function (date, fmt) { //author: meizz 
+  date2String: function (date, fmt) {
     var o = {
       "M+": date.getMonth() + 1, //月份 
       "d+": date.getDate(), //日 
@@ -90,7 +92,7 @@ Page({
 
     // wx.showLoading();
     wx.request({
-      url: constans.baseUrl + '/api_getPayHistory',
+      url: constants.baseUrl + '/api_getPayHistory',
       method: 'POST',
       header: {
         'content-type': 'application/x-www-form-urlencoded'

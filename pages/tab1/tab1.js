@@ -1,7 +1,7 @@
 // pages/tab1/tab1.js
 // const Toast = require('components/toast/toast');
 var app = getApp()
-var constans = require('../../utils/constans.js'); 
+var constans = require('../../utils/constants.js'); 
 
 Page({
 

@@ -1,7 +1,7 @@
 // pages/tab3/tab3.js
 
 var app = getApp()
-var constans = require('../../utils/constans.js'); 
+var constans = require('../../utils/constants.js'); 
 
 Page({
 

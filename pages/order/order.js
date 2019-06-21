@@ -1,6 +1,7 @@
 // pages/order/order.js
 
 var app = getApp()
+var constans = require('../../utils/constants.js'); 
 
 Page({
 
@@ -95,7 +96,7 @@ Page({
     var param = this.data.cartGoods.map(it => it.barCode + ',' + it.quantity).join(";").toString()
     console.log(param)
     wx.request({
-      url: constans.baseUrl + '/api_payManyGoods',
+      url: constants.baseUrl + '/api_payManyGoods',
       method: 'POST',
       header: {
         'content-type': 'application/x-www-form-urlencoded'

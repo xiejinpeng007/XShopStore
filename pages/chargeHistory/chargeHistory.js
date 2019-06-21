@@ -1,4 +1,6 @@
 // pages/chargeHistory/chargeHistory.js
+var constants = require('../../utils/constants.js'); 
+
 Page({
 
   /**
@@ -73,7 +75,7 @@ Page({
 
     // wx.showLoading();
     wx.request({
-      url: constans.baseUrl + '/api_getChargeHistory',
+      url: constants.baseUrl + '/api_getChargeHistory',
       method: 'POST',
       header: {
         'content-type': 'application/x-www-form-urlencoded'
