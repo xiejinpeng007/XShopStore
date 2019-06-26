@@ -5,7 +5,7 @@
       <van-swipe-cell
         class="swipe-cell"
         v-for="(item,index) in cartGoodsItems"
-        v-bind:key="item.barCode"
+        :key="item.barCode"
         :right-width="60"
         :style="{'-webkit-animation' : 'fade-in'+' '+ (index*0.2<3?(index*0.2):3) +'s',
                'animation' : 'fade-in'+' '+ (index*0.2<3?(index*0.2):3) +'s'}"
@@ -18,7 +18,12 @@
             @click="onCheckedChanged(index)"
           ></van-checkbox>
           <label style="max-width:50%">{{item.name}}</label>
-          <van-stepper v-model="item.quantity" integer :max="item.count" @change="onStepChanged"/>
+          <van-stepper
+            :value="item.quantity"
+            integer
+            :max="item.count"
+            @change="v=>onStepChanged(index,v)"
+          />
         </div>
         <van-button
           style="height:7vh"
@@ -31,84 +36,100 @@
       </van-swipe-cell>
     </div>
     <div class="bottom-layout van-hairline--top">
-      <van-checkbox v-model="allChecked" v-on:click="onAllCheckedChanged" checked-color="#F77938">全选</van-checkbox>
-      <label>合计：{{totoalPrice}}元</label>
+      <van-checkbox v-model="allChecked" @click="onAllCheckedChanged" checked-color="#F77938">全选</van-checkbox>
+      <label>合计：{{checkedTotalPrice}}元</label>
       <button class="cal-btn bg-gradual-orange" v-on:click="onOrderClick">结算</button>
     </div>
   </div>
 </template>
 
 <script>
-import store from "@/store.js";
 import cookieutil from "@/utils/cookieutil.js";
+import { mapGetters, mapActions, mapState, mapMutations } from "vuex";
+import { all } from "q";
 
 export default {
   name: "cart",
   data() {
     return {
-      cartGoodsItems: store.store.cartGoodsItems,
-      allChecked: true,
-      totoalPrice: 0
+      allChecked: true
     };
   },
+  computed: {
+    ...mapState("cart", ["cartGoodsItems", "orderGoodsItems"]),
+    ...mapGetters("cart", ["checkedTotalPrice"]),
+    isAllChecked() {
+      if (this.cartGoodsItems.length == 0) return false;
+      else return this.cartGoodsItems.every(it => it.checked);
+    }
+  },
+  watch: {
+    isAllChecked(newValue) {
+      this.allChecked = newValue;
+    }
+  },
   created() {
-    this.cartGoodsItems = store.store.cartGoodsItems;
+    // this.cartGoodsItems = store.store.cartGoodsItems;
     // eslint-disable-next-line
     console.log(this.cartGoodsItems);
   },
   mounted() {
-    this.refreshPageStatus();
-    store.store.addItem2Order();
+    // this.refreshPageStatus();
+    // this.addItem2Order();
+  },
+  activated() {
+    // this.cartGoodsItems = store.store.cartGoodsItems;
+    // this.refreshPageStatus();
   },
   methods: {
+    ...mapMutations("cart", [
+      "addItem2Order",
+      "removeItemFromCart",
+      "setCartAllChecked",
+      "reverseCartItemChecked",
+      "changeQuantity"
+    ]),
     onDelete(index) {
       if (this.cartGoodsItems == null) return;
-      store.store.removeItemFromCart(this.cartGoodsItems[index].barCode);
-      this.cartGoodsItems = store.store.cartGoodsItems;
+      this.removeItemFromCart(this.cartGoodsItems[index].barCode);
       this.refreshPageStatus();
       console.log(index);
     },
     onAllCheckedChanged(event) {
-      console.log("onAllCheckedChanged");
       console.log(event);
-      this.cartGoodsItems = this.cartGoodsItems.map(it => {
-        it.checked = !this.allChecked;
-        return it;
-      });
-      this.calTotalPrice();
+      this.setCartAllChecked(!this.allChecked);
+      // this.calTotalPrice();
     },
     onCheckedChanged(index) {
       console.log("onCheckedChanged");
-      this.cartGoodsItems[index].checked = !this.cartGoodsItems[index].checked;
-      this.refreshPageStatus();
+      this.reverseCartItemChecked(index);
+      // this.refreshPageStatus();
     },
     refreshPageStatus() {
-      this.calTotalPrice();
-      this.calAllCheck();
+      // this.calTotalPrice();
+      // this.calAllCheck();
     },
     calTotalPrice() {
       this.totoalPrice = this.cartGoodsItems
         .filter(it => it.checked == true)
-        .reduce(
-          (pre, cur, curIndex, arr) => pre + cur.salePrice * cur.quantity,
-          0
-        )
+        .reduce((pre, cur) => pre + cur.salePrice * cur.quantity, 0)
         .toFixed(1);
       store.store.addItem2Order();
     },
-    calAllCheck() {
-      if (this.cartGoodsItems.length == 0) this.allChecked = false;
-      else this.allChecked = this.cartGoodsItems.every(it => it.checked);
-    },
+    // calAllCheck() {
+    //   if (this.cartGoodsItems.length == 0) this.allChecked = false;
+    //   else this.allChecked = this.cartGoodsItems.every(it => it.checked);
+    // },
     //Listeners
     onOrderClick() {
       if (cookieutil.getCookie("token") == null) this.$toast("请登录");
-      else if (store.store.orderGoodsItems.length == 0)
-        this.$toast("未选中商品");
+      else if (this.checkedTotalPrice == 0) this.$toast("未选中商品");
       else this.$router.push("/order");
     },
-    onStepChanged() {
-      this.calTotalPrice();
+    onStepChanged(index, quantity) {
+      console.log(index + "    " + quantity);
+      this.changeQuantity({ index, quantity });
+      // this.calTotalPrice();
     }
   }
 };

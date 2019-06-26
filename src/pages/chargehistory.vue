@@ -2,7 +2,7 @@
   <div id="chargehistory">
     <div class="chargehistory-content">
       <h1>充值记录</h1>
-      <label>总充值：{{sumCharge}}元</label>
+      <label>累计充值：{{sumCharge}}元</label>
       <div class="ch-items shadow-s">
         <div class="ch-item" v-for="item in historyItems" :key="item.time">
           <label>{{item.charge}}元</label>

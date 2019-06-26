@@ -2,6 +2,7 @@
   <div id="home">
     <h1>小卖部</h1>
     <!-- <qrcode-stream @decode="onDecode"></qrcode-stream> -->
+    <van-button class="qr-scan" plain icon="scan" @click="onQrClick" size="small" :round="true">扫一扫</van-button>
     <van-search
       class="search"
       placeholder="请输入要搜索的商品"
@@ -11,9 +12,9 @@
     />
     <li
       class="goods-item"
-      v-for="(item,index) in (filteredItems?filteredItems:goodsItems)"
-      :style="{'-webkit-animation' : 'fade-in'+' '+ (index*0.2<3 ? (index*0.2) : 3) +'s',
-               'animation' : 'fade-in'+' '+ (index*0.2<3 ? (index*0.2) : 3) +'s'}"
+      v-for="(item,index) in filteredItems"
+      :style="{'-webkit-animation' : 'fade-in'+' '+ (index*0.2<3 ? (index*0.2) : 0) +'s',
+               'animation' : 'fade-in'+' '+ (index*0.2<3 ? (index*0.2) : 0) +'s'}"
       :key="item.barCode"
       @click="onItemClick(index)"
     >
@@ -25,27 +26,37 @@
 
 <script>
 import axios from "axios";
-import store from "@/store.js";
-import { QrcodeStream, QrcodeDropZone, QrcodeCapture } from "vue-qrcode-reader";
-// var store = require('@/store');
+import store from "@/simplestore.js";
+import { mapGetters, mapActions, mapState } from "vuex";
 
 export default {
   name: "home",
-  components: {
-    QrcodeStream
-  },
+  components: {},
   data() {
     return {
-      aaa: true,
       keyword: null,
-      goodsItems: null,
-      filteredItems: null
+      goodsItems: null
     };
+  },
+  computed: {
+    ...mapState("token", ["cartGoodsItems"]),
+    filteredItems() {
+      return this.keyword == null || this.keyword == ""
+        ? this.goodsItems
+        : this.goodsItems.filter(it => it.name.includes(this.keyword));
+    }
   },
   created() {
     this.requestGoods();
   },
   mounted() {},
+  activated() {
+    const qrCode = store.store.getAndClearQrCode();
+    if (qrCode != null) {
+      this.keyword = this.goodsItems.find(it => it.barCode == qrCode).name;
+      this.onSearch();
+    }
+  },
   methods: {
     requestGoods() {
       axios
@@ -62,18 +73,19 @@ export default {
     },
     onItemClick(index) {
       this.$toast("已添加到购物车");
-      //添加到全局 store 中
-      store.store.addItem2Cart(this.goodsItems[index]);
-      // eslint-disable-next-line
-      console.log(store);
-    },
-    onSearch() {
-      this.filteredItems = this.goodsItems.filter(it =>
-        it.name.includes(this.keyword)
+      this.$store.commit(
+        "cart/addItem2Cart",
+
+        this.filteredItems[index]
       );
     },
-    onDecode(decodedString) {
-      console.log(decodedString);
+    onSearch() {
+      // this.filteredItems = this.goodsItems.filter(it =>
+      //   it.name.includes(this.keyword)
+      // );
+    },
+    onQrClick() {
+      this.$router.push("/qrscan");
     }
   }
 };
@@ -84,13 +96,23 @@ export default {
   padding-bottom: 8vh;
   background-size: 100% 100%;
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   /* overflow: scroll; */
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
 
+.qr-scan {
+  align-content: center;
+  height: 5vh;
+  width: 92%;
+  margin-left: 4%;
+  margin-right: 4%;
+  font-size: 16px;
+}
+
 .search {
+  background-color: white;
   position: -webkit-sticky; /* Safari */
   position: sticky;
   top: 0;

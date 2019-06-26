@@ -1,4 +1,2 @@
-const baseUrl = "http://localhost:8080/"
-export default {
-    baseUrl: baseUrl
-}
+const baseUrl = "http://localhost:8088"
+export default { baseUrl }

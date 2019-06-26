@@ -1,9 +1,11 @@
 <template>
   <div id="app">
-    <router-view/>
+    <keep-alive :include="['home','cart','my']">
+      <router-view/>
+    </keep-alive>
     <van-tabbar class="tabbar" v-model="active" active-color="#f77938">
       <van-tabbar-item icon="home-o" to="/">首页</van-tabbar-item>
-      <van-tabbar-item icon="shopping-cart-o" to="/cart">购物车</van-tabbar-item>
+      <van-tabbar-item icon="shopping-cart-o" to="/cart" :info="cartGoodsItemsNum">购物车</van-tabbar-item>
       <van-tabbar-item icon="user-o" to="/my">我的</van-tabbar-item>
     </van-tabbar>
   </div>
@@ -12,6 +14,7 @@
 <script>
 import axios from "axios";
 import api from "@/utils/api.js";
+import { mapGetters, mapActions, mapState } from "vuex";
 
 export default {
   name: "app",
@@ -20,7 +23,14 @@ export default {
       active: 0
     };
   },
+  computed: {
+    ...mapGetters("cart", ["cartGoodsItemsLength"]),
+    cartGoodsItemsNum() {
+      return this.cartGoodsItemsLength > 0 ? this.cartGoodsItemsLength : null;
+    }
+  },
   created() {
+    //init Axios
     if (process.env.NODE_ENV !== "development")
       axios.defaults.baseURL = api.baseURL;
     axios.defaults.headers.post["Content-Type"] =

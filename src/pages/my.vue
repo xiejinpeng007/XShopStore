@@ -10,54 +10,47 @@
         <div class="item" v-on:click="onOrderHistory">历史订单</div>
         <div class="item" v-on:click="onChargeHistory">充值记录</div>
       </div>
-      <button class="logout-button" v-on:click="onLogout">退出</button>
+      <button class="logout-button shadow" v-on:click="onLogout">退出</button>
     </div>
     <div v-else style="height:100%">
-      <div class="login-layout shadow-lg">
-        <van-field style="height:50%" v-model="username" size="large" clearable="true" label="账号"/>
+      <div class="login-layout shadow-s">
+        <van-field style="height:50%" v-model="username" size="large" :clearable="true" label="账号"/>
         <van-field style="height:50%" v-model="password" type="password" size="large" label="密码"/>
       </div>
-      <button class="login-button bg-gradual-orange" v-on:click="onLogin">登录</button>
+      <button class="login-button bg-gradual-orange shadow" v-on:click="onLogin">登录</button>
     </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import store from "@/store.js";
 import cookieutil from "@/utils/cookieutil.js";
+import { mapGetters, mapActions, mapState } from "vuex";
 
 export default {
   name: "my",
+  computed: {
+    ...mapState("token", {
+      token: "token",
+      isLogin: state => state.token != null
+    })
+  },
+  watch: {},
   data() {
     return {
-      isLogin: false,
       username: "",
       password: "",
       money: 0
     };
   },
-  created() {
-    const token = cookieutil.getCookie("token");
-    this.isLogin = token != null;
-    console.log(token);
-    if (this.isLogin) {
-      const params = new URLSearchParams();
-      params.append("token", token);
-      axios
-        .post("/api_userinfo", params)
-        .then(response => {
-          console.log(response.data);
-          this.money = response.data.money;
-        })
-        .catch(error => {
-          // eslint-disable-next-line
-          console.log(error);
-        });
-    }
-  },
+  created() {},
   mounted() {},
+  activated() {
+    console.log(this.token.token);
+    this.requestDetail();
+  },
   methods: {
+    ...mapActions("token", ["saveToken", "clearToken"]),
     onLogin() {
       const params = new URLSearchParams();
       params.append("name", this.username);
@@ -66,9 +59,8 @@ export default {
         .post("/api_login", params)
         .then(response => {
           // eslint-disable-next-line
-          cookieutil.setCookie("token", response.data.token, 30);
+          this.saveToken(response.data.token);
           this.money = response.data.money;
-          this.isLogin = true;
           console.log(response.data);
         })
         .catch(error => {
@@ -76,9 +68,26 @@ export default {
           console.log(error);
         });
     },
+    requestDetail() {
+      if (this.isLogin) {
+        const token = this.token;
+        const params = new URLSearchParams();
+        params.append("token", token);
+        axios
+          .post("/api_userinfo", params)
+          .then(response => {
+            console.log(response.data);
+            this.money = response.data.money;
+          })
+          .catch(error => {
+            // eslint-disable-next-line
+            console.log(error);
+          });
+      }
+    },
     onLogout() {
-      cookieutil.delCookie("token");
-      this.isLogin = false;
+      this.clearToken();
+      console.log(this.$store.state.token.token);
     },
     onOrderHistory() {
       this.$router.push("/orderhistory");
@@ -127,14 +136,13 @@ export default {
   border: none;
   background-color: #ed1c24;
   font-size: 18px;
-  margin-top: 10%;
+  margin-top: 15%;
   height: 6vh;
   width: 90%;
   border-radius: 5px;
   overflow: hidden;
-  -webkit-transition-duration: 0.4s; /* Safari */
-  transition-duration: 0.4s;
-  box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.24), 0 9px 25px 0 rgba(0, 0, 0, 0.19);
+  -webkit-transition-duration: 0.2s; /* Safari */
+  transition-duration: 0.2s;
 }
 
 .login-button:active {
@@ -148,14 +156,13 @@ export default {
   border: none;
   background-color: #ed1c24;
   font-size: 18px;
-  margin-top: 10%;
+  margin-top: 15%;
   height: 6vh;
   width: 90%;
   border-radius: 5px;
   overflow: hidden;
-  -webkit-transition-duration: 0.4s; /* Safari */
-  transition-duration: 0.4s;
-  box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.24), 0 9px 25px 0 rgba(0, 0, 0, 0.19);
+  -webkit-transition-duration: 0.2s; /* Safari */
+  transition-duration: 0.2s;
 }
 
 .logout-button:active {

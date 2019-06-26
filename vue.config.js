@@ -1,4 +1,4 @@
-const baseUrl = 'localhost:8080/'
+const baseUrl = "http://localhost:8088"
 module.exports = {
     //dev 环境代理 解决dev环境跨域问题
     devServer: {

@@ -4,6 +4,7 @@ const store = {
     cartGoodsItems: [],
     orderGoodsItems: [],
     token: null,
+    tempQrCode: null,
 
     saveToken(token) {
         this.token = token
@@ -39,6 +40,14 @@ const store = {
                 0
             )
             .toFixed(1);
+    },
+    saveQrCode(qrCode) {
+        this.tempQrCode = qrCode;
+    },
+    getAndClearQrCode() {
+        const qrCode = this.tempQrCode;
+        this.tempQrCode = null;
+        return qrCode;
     }
 }
 
