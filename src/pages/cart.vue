@@ -68,19 +68,6 @@ export default {
       this.allChecked = newValue;
     }
   },
-  created() {
-    // this.cartGoodsItems = store.store.cartGoodsItems;
-    // eslint-disable-next-line
-    console.log(this.cartGoodsItems);
-  },
-  mounted() {
-    // this.refreshPageStatus();
-    // this.addItem2Order();
-  },
-  activated() {
-    // this.cartGoodsItems = store.store.cartGoodsItems;
-    // this.refreshPageStatus();
-  },
   methods: {
     ...mapMutations("cart", [
       "addItem2Order",
@@ -96,30 +83,17 @@ export default {
       console.log(index);
     },
     onAllCheckedChanged(event) {
-      console.log(event);
       this.setCartAllChecked(!this.allChecked);
-      // this.calTotalPrice();
     },
     onCheckedChanged(index) {
-      console.log("onCheckedChanged");
       this.reverseCartItemChecked(index);
-      // this.refreshPageStatus();
-    },
-    refreshPageStatus() {
-      // this.calTotalPrice();
-      // this.calAllCheck();
     },
     calTotalPrice() {
       this.totoalPrice = this.cartGoodsItems
         .filter(it => it.checked == true)
         .reduce((pre, cur) => pre + cur.salePrice * cur.quantity, 0)
         .toFixed(1);
-      store.store.addItem2Order();
     },
-    // calAllCheck() {
-    //   if (this.cartGoodsItems.length == 0) this.allChecked = false;
-    //   else this.allChecked = this.cartGoodsItems.every(it => it.checked);
-    // },
     //Listeners
     onOrderClick() {
       if (cookieutil.getCookie("token") == null) this.$toast("请登录");
@@ -127,9 +101,7 @@ export default {
       else this.$router.push("/order");
     },
     onStepChanged(index, quantity) {
-      console.log(index + "    " + quantity);
       this.changeQuantity({ index, quantity });
-      // this.calTotalPrice();
     }
   }
 };

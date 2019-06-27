@@ -3,13 +3,7 @@
     <h1>小卖部</h1>
     <!-- <qrcode-stream @decode="onDecode"></qrcode-stream> -->
     <van-button class="qr-scan" plain icon="scan" @click="onQrClick" size="small" :round="true">扫一扫</van-button>
-    <van-search
-      class="search"
-      placeholder="请输入要搜索的商品"
-      v-model="keyword"
-      @search="onSearch"
-      shape="round"
-    />
+    <van-search class="search" placeholder="请输入要搜索的商品" v-model="keyword" shape="round"/>
     <li
       class="goods-item"
       v-for="(item,index) in filteredItems"
@@ -78,11 +72,6 @@ export default {
 
         this.filteredItems[index]
       );
-    },
-    onSearch() {
-      // this.filteredItems = this.goodsItems.filter(it =>
-      //   it.name.includes(this.keyword)
-      // );
     },
     onQrClick() {
       this.$router.push("/qrscan");

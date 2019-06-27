@@ -58,7 +58,6 @@ export default {
       axios
         .post("/api_login", params)
         .then(response => {
-          // eslint-disable-next-line
           this.saveToken(response.data.token);
           this.money = response.data.money;
           console.log(response.data);

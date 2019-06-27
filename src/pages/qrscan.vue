@@ -16,9 +16,7 @@ export default {
   data() {
     return {};
   },
-  created() {
-    // this.requestGoods();
-  },
+  created() {},
   methods: {
     onDecode(decodedString) {
       // this.$toast(decodedString);
